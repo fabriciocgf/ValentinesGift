@@ -13,24 +13,27 @@ void coracao(uint16_t color256);
 // Define the array of leds
 CRGB leds[NUM_LEDS];
  
-const char* ssid     = "Casa 2G";
-const char* password = "012996009191";
+const char* ssid     = "Casa 2G"; // Net Virtua 169 2g
+const char* password = "012996009191"; 
  
 //Host e chave disponíveis na plataforma IFTTT.
 const char* host = "maker.ifttt.com";
  
 //Led indica que a mensagem foi disparada ao IFTTT.
  
-#define BUTTON_PIN D1
+#define BUTTON_PIN D7
  
-char* eventName1 = "/trigger/button_pressed/with/key/briI0wuHkLJTMEcWOUnXe4";
-char* eventName2 = "/trigger/button_released/with/key/briI0wuHkLJTMEcWOUnXe4";
+const char* eventName1 = "/trigger/button_pressed/with/key/briI0wuHkLJTMEcWOUnXe4";
+const char* eventName2 = "/trigger/button_released/with/key/briI0wuHkLJTMEcWOUnXe4";
 
 void button_pressed();
 void button_released();
 void connectToWifi();
  
 void setup() {
+
+// pinMode(D6,OUTPUT);
+// digitalWrite(D6, LOW);
 
 FastLED.addLeds<NEOPIXEL, DATA_PIN>(leds, NUM_LEDS);  // GRB ordering is assumed
 delay(50);
@@ -40,7 +43,7 @@ Serial.begin(74880);
 delay(10);
  
 // set button pin as an input
-pinMode(BUTTON_PIN, INPUT_PULLUP);
+pinMode(BUTTON_PIN, INPUT);
  
 connectToWifi();
 }
@@ -54,7 +57,7 @@ if(digitalRead(BUTTON_PIN) == LOW){
   button_released();
 }
 
-coracao(60000);
+coracao(32000);
 FastLED.show();
 
 }
@@ -80,6 +83,14 @@ Serial.println(WiFi.localIP());
 
 void button_pressed()
 {
+// Turn the LED on, then pause
+for (size_t i = 0; i < NUM_LEDS/2; i++)
+{
+  leds[i] = CRGB::Red; //cor fabi 123457
+  leds[7-i] = CRGB::Red;
+  FastLED.show();
+  delay(100);
+}
 
 Serial.print("conectado em: ");
 Serial.println(host);
@@ -156,6 +167,14 @@ Serial.println();
 Serial.println("Fechando Conexao");
  
 delay(1000);
+// Now turn the LED off, then pause
+for (size_t i = 0; i < NUM_LEDS/2; i++)
+{
+  leds[i] = CRGB::Black;
+  leds[7-i] = CRGB::Black;
+  FastLED.show();
+  delay(100);
+} 
 }
 
 void coracao(uint16_t color256) 
