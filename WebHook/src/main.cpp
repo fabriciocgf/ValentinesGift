@@ -13,8 +13,8 @@ void coracao(uint16_t color256);
 // Define the array of leds
 CRGB leds[NUM_LEDS];
  
-const char* ssid     = "Casa 2G"; // Net Virtua 169 2g
-const char* password = "012996009191"; 
+const char* ssid     = "Your_SSID"; // Net Virtua 169 2g
+const char* password = "Your_PSK"; 
  
 //Host e chave disponíveis na plataforma IFTTT.
 const char* host = "maker.ifttt.com";
